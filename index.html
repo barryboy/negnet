@@ -1,0 +1,54 @@
+<!-- index.html -->
+    <!DOCTYPE html>
+
+    <!-- define angular app -->
+<html ng-app="negnetApp">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./bower_components/angular-material/angular-material.css" />
+        <link rel="stylesheet" href="assets/css/style.css" />
+
+        <script src="./bower_components/angular/angular.js"></script>
+        <script src="./bower_components/angular-animate/angular-animate.js"></script>
+        <script src="./bower_components/angular-messages/angular-messages.js"></script>
+        <script src="./bower_components/angular-route/angular-route.js"></script>
+        <script src="./bower_components/angular-base64/angular-base64.js"></script>
+        <script src="./bower_components/angular-aria/angular-aria.js"></script>
+        <script src="./bower_components/angular-material/angular-material.js"></script>
+        <script src="./bower_components/svg-assets-cache.js/svg-assets-cache.js"></script>
+        <script src="./bower_components/angular-sanitize/angular-sanitize.js"></script>
+
+        <!-- Angular Material Fileinput -->
+        <link rel="stylesheet" href="./bower_components/lf-ng-md-file-input/dist/lf-ng-md-file-input.css">
+        <script src="./bower_components/lf-ng-md-file-input/dist/lf-ng-md-file-input.js"></script>
+
+        <!-- Angular Material md-data-table -->
+        <!-- style sheet -->
+        <link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
+        <!-- module -->
+        <script type="text/javascript" src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+
+        <script src="app/module.js"></script>
+        <script src="app/routes.js"></script>
+        <script src="app/services/session.service.js"></script>
+        <script src="app/services/user.service.js"></script>
+        <script src="app/services/project.service.js"></script>
+        <script src="app/services/utterance.service.js"></script>
+        <script src="app/services/selection.service.js"></script>
+        <script src="app/services/node.service.js"></script>
+        <script src="app/services/link.service.js"></script>
+        <script src="app/components/main/mainController.js"></script>
+        <script src="app/components/home/homeController.js"></script>
+        <script src="app/components/dashboard/dashboardController.js"></script>
+        <script src="app/components/negnet/negnetController.js"></script>
+        <script src="app/components/about/aboutController.js"></script>
+        <script src="app/components/auth/signupController.js"></script>
+        <script src="app/components/auth/loginController.js"></script>
+        <script src="app/components/auth/logoutController.js"></script>
+        <script src="app/components/auth/authInterceptor.js"></script>
+    </head>
+
+    <body layout="column">
+        <div ng-include="'app/components/main/mainView.html'" layout="column" flex></div>
+    </body>
+</html>

@@ -1,0 +1,109 @@
+(function () {
+    'use strict';
+
+    angular
+        .module('negnetApp')
+        .controller('NegNetController', NegNetController);
+
+    NegNetController.$inject = ['SessionService',
+                                'ProjectService',
+                                'UtteranceService',
+                                'UserService',
+                                '$mdPanel',
+                                '$route',
+                                '$rootScope'];
+
+
+    function NegNetController(SessionService, ProjectService, UtteranceService,
+        UserService, $mdPanel, $route, $rootScope) {
+        var vm = this;
+        console.log('Zaladowalem ' + vm.constructor.name);
+        vm.p_id = $rootScope.currentProject;
+
+        ProjectService.GetById(vm.p_id).then(function(resp){
+            vm.project = resp.project;
+        });
+
+        UtteranceService.GetAllByProject(vm.p_id).then(function(resp){
+            vm.utterances = resp;
+        });
+
+        vm.startSelection = function(ev) {
+            var target = angular.element(ev.target);
+            vm.selection_start = target;
+        };
+
+        vm.getSelection = function(ev) {
+            var target = angular.element(ev.target);
+            var className = target.attr('class');
+            console.log(className);
+            if (className == 'selection') {
+                console.log("Wybrano selekcję");
+            } else {
+                if (angular.equals(target, vm.selection_start)) {
+                    var id = target.attr('id');
+                    var selection = window.getSelection();
+                    var start = selection.anchorOffset;
+                    var end = selection.focusOffset;
+                    var whole_txt = angular.element(target).text();
+                    var selected_txt = selection.toString();
+                    console.log(id + '\n' + whole_txt  + '\n'  + selected_txt + ' (' + start + ', ' + end + ')');
+                } else {
+                    console.log('selekcja musi odbywać się w obrębie jednej wypowiedzi');
+                }
+                if (selected_txt != ''){
+                    vm.showMenu(ev, selected_txt);
+                }
+            }
+        };
+
+        vm._mdPanel = $mdPanel;
+        vm.nodes = ['node1', 'node2', 'node3', 'node4', 'node5', 'node6', 'node7', 'node8', 'node9', 'node10', 'node11', 'node12', 'node13', 'node14', 'node15', 'node16', 'node17', 'node18', 'node19', 'node20' ];
+    }
+
+
+    NegNetController.prototype.showMenu = function(ev, txt) {
+        var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        console.log(h/2, ev.y)
+        if (ev.y < h/2) {
+            var position = this._mdPanel.newPanelPosition()
+                .relativeTo(ev.target) //('.demo-menu-open-button')
+                .addPanelPosition(this._mdPanel.xPosition.CENTER, this._mdPanel.yPosition.BELOW);
+        }
+        else {
+            var position = this._mdPanel.newPanelPosition()
+                .relativeTo(ev.target) //('.demo-menu-open-button')
+                .addPanelPosition(this._mdPanel.xPosition.CENTER, this._mdPanel.yPosition.ABOVE);
+        };
+
+            // if you remove this function, it will not work. Try it.
+            // relative object values (this._mdPanel.xPosition, this._mdPanel.yPosition);
+
+        var config = {
+            attachTo: angular.element(document.body),
+            controller: PanelMenuCtrl,
+            controllerAs: 'ctrl',
+            templateUrl: 'app/components/negnet/selection_dialog.html',
+            panelClass: 'selection-dialog',
+            position: position,
+            locals: {
+                content: txt,
+                type: 'Node',
+                nodes: this.nodes,
+                nodeName: '',
+                startNode: '',
+                endNode: '',
+            },
+            openFrom: ev,
+            clickOutsideToClose: false,
+            escapeToClose: true,
+            focusOnOpen: true,
+            zIndex: 2
+        };
+
+        this._mdPanel.open(config);
+    };
+
+    function PanelMenuCtrl(mdPanelRef, $timeout) {
+    };
+})();

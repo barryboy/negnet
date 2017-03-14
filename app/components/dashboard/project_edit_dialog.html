@@ -1,0 +1,21 @@
+<md-dialog>
+    <md-content layout-padding>
+        <div>
+            <form name="projectForm">
+                <md-input-container>
+                    <label>Tytuł projektu</label>
+                    <input ng-model="editProjDlg.projectData.name">
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Opis projektu:</label>
+                    <textarea ng-model="editProjDlg.projectData.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+            </form>
+        </div>
+        <div class="md-dialog-actions">
+            <md-button ng-click="editProjDlg.accept()" class="md-primary">
+                Zatwierdź zmiany
+            </md-button>
+        </div>
+    </md-content>
+</md-dialog>

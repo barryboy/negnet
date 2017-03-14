@@ -1,0 +1,24 @@
+<md-dialog>
+    <md-content layout-padding>
+        <div>
+            <form name="projectForm">
+                <md-input-container>
+                    <label>Tytuł projektu</label>
+                    <input ng-model="createProjDlg.projectData.name">
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Opis projektu:</label>
+                    <textarea ng-model="createProjDlg.projectData.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+                <md-input-container>
+                    <lf-ng-md-file-input lf-files="files" lf-api="api"></lf-ng-md-file-input>
+                </md-input-container>
+            </form>
+        </div>
+        <div class="md-dialog-actions">
+            <md-button ng-click="createProjDlg.accept()" class="md-primary">
+                Utwórz projekt
+            </md-button>
+        </div>
+    </md-content>
+</md-dialog>

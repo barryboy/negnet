@@ -1,0 +1,27 @@
+
+    <md-toolbar class="md-whiteframe-1dp">
+        <div class="md-toolbar-tools">
+            <div class="md-title">{{vm.project.name}}</div>
+        </div>
+    </md-toolbar>
+
+    <md-content flex>
+        <div layout="column" ng-mousedown="vm.startSelection($event)">
+            <md-table-container>
+                <table md-table>
+                    <thead md-head>
+                        <th md-column>Step</th>
+                        <th md-column>Party</th>
+                        <th md-column>Content</th>
+                    </thead>
+                <tbody md-body>
+                    <tr md-row ng-repeat="utterance in vm.utterances">
+                        <td md-cell ng-attr-id="{{utterance._id}}">{{utterance.step}}</td>
+                        <td md-cell ng-attr-id="{{utterance._id}}">{{utterance.party}}</td>
+                        <td class="utterance" md-cell ng-attr-id="{{utterance._id}}" ng-mouseup="vm.getSelection($event)" ng-bind-html="utterance.content"></td>
+                    </tr>
+                </tbody>
+                </table>
+            </md-table-container>
+        </div>
+    </md-content>

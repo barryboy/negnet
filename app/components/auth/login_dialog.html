@@ -1,0 +1,30 @@
+<md-dialog>
+    <md-content layout-padding>
+        <div>
+            <form name="loginForm">
+                <md-input-container>
+                    <label>Username:</label>
+                    <input required name="username" ng-model="vm.username">
+                    <div ng-messages="loginForm.username.$error">
+                        <div ng-message="required">To pole jest wymagane.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Opis projektu:</label>
+                    <textarea ng-model="project.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+                <md-input-container>
+                    <md-button class="md-primary">
+                        <label for="file-input">Wybierz plik z transkrypcją</label>  
+                    </md-button>
+                    <input id="file-input" type="file">
+                </md-input-container>
+            </form>
+        </div>
+        <div class="md-dialog-actions">
+            <md-button ng-click="dc.hide()" class="md-primary">
+                Utwórz projekt
+            </md-button>
+        </div>
+    </md-content>
+</md-dialog>

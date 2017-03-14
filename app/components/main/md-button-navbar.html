@@ -1,0 +1,22 @@
+<md-toolbar md-scroll-shrink>
+    <div class="md-toolbar-tools">NegNet</div>
+</md-toolbar>
+
+<md-subheader ng-show="main.userLoggedIn">Witaj, {{ main.name }}</md-subheader>
+
+<md-content layout-padding layout="column">
+    <span flex></span>
+    <md-button class="md-raised" href="#!/home" name="Home" ng-click="main.toggleLeft()">NegNet</md-button>
+    <md-button class="md-raised" href="#!/dashboard" name="Dashboard" ng-show="main.userLoggedIn" ng-click="main.toggleLeft()">Dashboard</md-button>
+    <md-button class="md-raised" href="#!/negnet" name="Workspace" ng-show="main.userLoggedIn && main.hasOpenProjects" ng-click="main.toggleLeft()">Workspace</md-button>
+    <md-list>
+        <md-list-item ng-repeat="project in main.projects">
+            <md-button layout-align="end" class="md-primary" href="#!/negnet" ng-click="main.toggleLeft(project.p_id)">{{project.name}}</md-button>
+        </md-list-item>
+    </md-list>
+    <md-button class="md-raised" href="#!/about" name="About" ng-click="main.toggleLeft()">About</md-button>
+    <span flex></span>
+    <md-button class="md-raised" href="#!/chooser" name="login" ng-show="!main.userLoggedIn" ng-click="main.toggleLeft()">Sign In / Sign Up</md-button>
+    <md-button class="md-raised" href="#!/logout" name="logout" ng-show="main.userLoggedIn" ng-click="main.toggleLeft()">Logout</md-button>
+    <span flex></span>
+</md-content>

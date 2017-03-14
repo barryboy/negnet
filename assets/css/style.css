@@ -1,0 +1,90 @@
+.footer {
+    height: 20px;
+    font-size: x-small;
+}
+
+.viewport {
+    height: 100%;
+}
+
+md-sidenav {
+    height: 90%;
+    border: 1px solid;
+    padding: 10px;
+    border-bottom-right-radius: 2em;
+}
+
+md-dialog{
+    pointer-events: all;
+    width: 50%;
+}
+
+#file-input{
+    display: none;
+}
+
+.selection-dialog-content {
+    padding: 2% 2% 2% 2%;
+}
+
+.selection-input {
+    padding: 5% 5% 5% 5%;
+}
+
+.selection-dialog {
+    background: white;
+    box-shadow: 15px 15px 10px #888888;
+    width: 50%;
+}
+
+.utterance-selection {
+    font-style: italic;
+    font-size: 120%;
+    font-weight: bold;
+    text-align: center;
+    background: lightgrey;
+}
+
+.utterance-selection-toolbar {
+    font-weight: bold;
+}
+
+.Node {
+    background: green;
+}
+
+.Link {
+    background: yellow;
+}
+
+#node-names {
+    height: 100px;
+    width: 100%;
+    min-width: 200px;
+    max-width: 400px;
+}
+
+.vertical-container {
+    text-align: center;
+}
+
+.link-description {
+    height: 40px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    font-size: 150%;
+}
+
+.start-node {
+    font-weight: bold;
+    color: green;
+}
+
+.end-node {
+    font-weight: bold;
+    color: red;
+}
+
+.selection {
+    background: yellow;
+}

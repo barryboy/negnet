@@ -1,0 +1,65 @@
+<md-toolbar class="utterance-selection-toolbar md-warn md-hue-11"layout="row" layout-align="center center">
+    {{ctrl.type}}
+</md-toolbar>
+
+<md-content class="selection-dialog-content" layout="column" layout-align="space-around center">
+    <div>
+        <p class="utterance-selection">{{ctrl.content}}</p>
+    </div>
+    <md-radio-group layout="row" layout-align="space-around start" class="md-primary" ng-model="ctrl.type">
+        <md-radio-button value="Node">Node</md-radio-button>
+        <md-radio-button value="Link">Link</md-radio-button>
+    </md-radio-group>
+
+
+    <div ng-show="ctrl.type == 'Node'" layout="column" layout-align="center center">
+            <div>
+                <h1 class="md-title">Assign a new name, or choose from existing names:</h1>
+            </div>
+            <div layout="row" layout-align="space-between center" >
+                <div class="selection-input" layout="column" layout-align="center center">
+                    <md-input-container>
+                        <label>Node name:</label>
+                        <input ng-model="ctrl.nodeName">
+                    </md-input-container>
+                </div>
+                <div layout="column" layout-align="center center">
+                    <md-content id="node-names">
+                            <p ng-repeat="item in ctrl.nodes" ng-click="ctrl.nodeName = item">
+                                {{item}}
+                            </p>
+                    </md-content>
+                </div>
+            </div>
+    </div>
+
+    <div ng-show="ctrl.type == 'Link'" layout="column" layout-align="center center">
+        <div layout="row" layout-align="center center">
+            <div layout="column" layout-align="center center" flex="30">
+                <h1 class="md-title">Start node:</h1>
+                    <md-content id="node-names">
+                            <p ng-repeat="item in ctrl.nodes" ng-click="ctrl.startNode = item">
+                                {{item}}
+                            </p>
+                    </md-content>
+            </div>
+            <div flex="40"></div>
+            <div layout="column" layout-align="center center" flex="30">
+                <h1 class="md-title">End node:</h1>
+                    <md-content id="node-names">
+                            <p ng-repeat="item in ctrl.nodes" ng-click="ctrl.endNode = item">
+                                {{item}}
+                            </p>
+                    </md-content>
+            </div>
+        </div>
+        <div class="link-description" layout="column" layout-align="center center">
+            <p><span ng-show="ctrl.startNode != ''">A link from <span class="start-node">{{ctrl.startNode}}</span></span><span ng-show="ctrl.endNode != ''"> to <span class="end-node">{{ctrl.endNode}}</span></span></p>
+        </div>
+    </div>
+
+    <div layout="row" layout-align="center center">
+        <md-button ng-disabled="ctrl.checkInputFields()" ng-click="ctrl.saveSelection()">Save</md-button>
+        <md-button ng-click="ctrl.closeDialog()">Cancel</md-button>
+    </div>
+</md-content>

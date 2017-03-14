@@ -1,0 +1,27 @@
+<div ng-controller="MainController as main" layout="column" flex ng-cloak>
+
+    <div layout="row" layout-padding flex>
+
+        <md-sidenav md-component-id="left" class="md-sidenav-left">
+            <div ng-include="'app/components/main/md-button-navbar.html'"></div>
+        </md-sidenav>
+
+        <div layout="column" layout-align="start center">
+            <md-button aria-label="menu" ng-click="main.toggleLeft()">
+                <md-icon md-svg-src="img/icons/menu.svg"></md-icon>
+                <md-tooltip md-direction="bottom">
+                    Navigation
+                </md-tooltip>
+            </md-button>
+            <span flex></span>
+            <p>Logo?</p>
+        </div>
+
+        <md-content layout="column">
+            <div layout="column" class="viewport" ng-view></div>
+        </md-content>
+    </div>
+    <div class="footer" layout="row" layout-align="center center">
+       © 2017 Michał Ziembowicz. All rights reserved.
+    </div>
+</div>
