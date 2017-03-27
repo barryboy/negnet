@@ -5,8 +5,8 @@
         .module('negnetApp')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$location', '$http', '$base64', 'SessionService'];
-    function LoginController($location, $http, $base64, SessionService) {
+    LoginController.$inject = ['$location', '$http', '$base64', 'SessionService', 'API'];
+    function LoginController($location, $http, $base64, SessionService, API) {
         var vm = this;
         vm.login = login;
 
@@ -14,7 +14,7 @@
             vm.user = {'username': vm.username, 'password': vm.password};
             vm.auth = $base64.encode(vm.user.username + ':' + vm.user.password),
             vm.headers = {"Authorization": "Basic " + vm.auth};
-            vm.url = 'http://127.0.0.1:5000/api01/token/';
+            vm.url = API.URL + ':' + API.PORT + '/token/';
             $http.get(vm.url, {headers: vm.headers})
                 .then(function successCallback(response) {
                     vm.data = response.data;

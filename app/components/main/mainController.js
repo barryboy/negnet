@@ -5,20 +5,21 @@
         .module('negnetApp')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['SessionService', 'UserService', 'ProjectService', '$rootScope', '$mdSidenav', '$location', '$route'];
-    function MainController(SessionService, UserService, ProjectService, $rootScope, $mdSidenav, $location, $route) {
+    MainController.$inject = ['SessionService', 'UserService', 'ProjectService', '$rootScope', '$mdSidenav', '$location', '$route', 'API'];
+    function MainController(SessionService, UserService, ProjectService, $rootScope, $mdSidenav, $location, $route, API) {
         var vm = this;
 
         $location.path("/home");
         $rootScope.userLoggedIn = SessionService.isUserLoggedIn();
         vm.userLoggedIn = $rootScope.userLoggedIn;
         if (vm.userLoggedIn) {
-            vm.userId = SessionService.getUserId();
-            UserService.GetById(vm.userId).then(function(user){
+//            vm.userId = SessionService.getUserId();
+           UserService.GetCurrent().then(function(user){
+               console.log(user);
                 vm.name = user.first_name + ' ' + user.last_name;
                 vm.username = user.username;
             });
-            ProjectService.GetAllByUser(vm.userId).then(function(resp){
+            ProjectService.GetAllByUser().then(function(resp){
                 var projects = [];
                 for (var i = 0; i < resp.length; i++) {
                     projects.push(resp[i]);

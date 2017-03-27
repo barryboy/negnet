@@ -5,10 +5,10 @@
         .module('negnetApp')
         .factory('LinkService', LinkService);
 
-    LinkService.$inject = ['$http'];
-    function LinkService($http) {
+    LinkService.$inject = ['$http', 'API'];
+    function LinkService($http, API) {
         var service = {};
-        var baseUrl = 'http://localhost:5000';
+        var baseUrl = API.URL + ':' + API.PORT;
 
         service.GetAll = GetAll;
         service.GetById = GetById;
@@ -19,23 +19,23 @@
         return service;
 
         function GetAll() {
-            return $http.get(baseUrl + '/api01/links/').then(handleSuccess, handleError('Error getting all links'));
+            return $http.get(baseUrl + '/links/').then(handleSuccess, handleError('Error getting all links'));
         }
 
         function GetById(id) {
-            return $http.get(baseUrl + '/api01/links/' + id).then(handleSuccess, handleError('Error getting link by id'));
+            return $http.get(baseUrl + '/links/' + id).then(handleSuccess, handleError('Error getting link by id'));
         }
 
         function Create(link) {
-            return $http.post(baseUrl + '/api01/links/', link).then(handleSuccess, handleError('Error creating link'));
+            return $http.post(baseUrl + '/links/', link).then(handleSuccess, handleError('Error creating link'));
         }
 
         function Update(link) {
-            return $http.put(baseUrl + '/api01/links/' + link.id, link).then(handleSuccess, handleError('Error updating link'));
+            return $http.put(baseUrl + '/links/' + link.id, link).then(handleSuccess, handleError('Error updating link'));
         }
 
         function Delete(id) {
-            return $http.delete(baseUrl + '/api01/links/' + id).then(handleSuccess, handleError('Error deleting link'));
+            return $http.delete(baseUrl + '/links/' + id).then(handleSuccess, handleError('Error deleting link'));
         }
 
         // private functions

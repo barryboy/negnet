@@ -5,13 +5,13 @@
         .module('negnetApp')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$http'];
-    function UserService($http) {
+    UserService.$inject = ['$http', 'API'];
+    function UserService($http, API) {
         var service = {};
-        var baseUrl = 'http://127.0.0.1:5000';
+        var baseUrl = API.URL + ':' + API.PORT;
 
         service.GetAll = GetAll;
-        service.GetById = GetById;
+        service.GetCurrent = GetCurrent;
         service.GetByUsername = GetByUsername;
         service.Create = Create;
         service.Update = Update;
@@ -20,29 +20,33 @@
         return service;
 
         function Create(user) {
-            return $http.post(baseUrl + '/api01/user/', user).then(handleSuccess, handleError('Error creating user'));
+            return $http.post(baseUrl + '/newuser/', user).then(handleSuccess, handleError('Error creating user'));
         }
 
         function GetAll() {
             console.log('Userservice.GetAll()');
-            return $http.get(baseUrl + '/api01/users/').then(handleSuccess, handleError('Error getting all users'));
+            return $http.get(baseUrl + '/users/').then(handleSuccess, handleError('Error getting all users'));
         }
 
-        function GetById(id) {
-            return $http.get(baseUrl + '/api01/user/' + id + '/').then(function(response){ return response.data.user },
-                handleError('Error getting user by id'));
+
+        function GetCurrent() {
+            console.log('Userservice.GetCurrent()');
+            return $http.get(baseUrl + '/user/').then(function(response) {
+                return response.data 
+            },
+                handleError('Error getting current user'));
         }
 
         function GetByUsername(username) {
-            return $http.get(baseUrl + '/api01/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
+            return $http.get(baseUrl + '/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
         }
 
         function Update(user) {
-            return $http.put(baseUrl + '/api01/user/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+            return $http.put(baseUrl + '/user/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
         }
 
         function Delete(id) {
-            return $http.delete(baseUrl + '/api01/users/' + id).then(handleSuccess, handleError('Error deleting user'));
+            return $http.delete(baseUrl + '/users/' + id).then(handleSuccess, handleError('Error deleting user'));
         }
 
         // private functions
