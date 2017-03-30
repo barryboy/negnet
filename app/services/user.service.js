@@ -10,7 +10,6 @@
         var service = {};
         var baseUrl = API.URL + ':' + API.PORT;
 
-        service.GetAll = GetAll;
         service.GetCurrent = GetCurrent;
         service.GetByUsername = GetByUsername;
         service.Create = Create;
@@ -22,12 +21,6 @@
         function Create(user) {
             return $http.post(baseUrl + '/newuser/', user).then(handleSuccess, handleError('Error creating user'));
         }
-
-        function GetAll() {
-            console.log('Userservice.GetAll()');
-            return $http.get(baseUrl + '/users/').then(handleSuccess, handleError('Error getting all users'));
-        }
-
 
         function GetCurrent() {
             console.log('Userservice.GetCurrent()');
