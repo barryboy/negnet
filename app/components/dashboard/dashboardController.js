@@ -46,9 +46,11 @@
                 bindToController: true
             })
             .then(function(projectData){
+                console.log(projectData);
                 ProjectService.Create(projectData)
                     .then(function(response){
-                        ProjectService.InsertData(response.project.p_id
+                        console.log(response);
+                        ProjectService.InsertData(response.p_id
                             ,projectData.file);
                         $route.reload();
                     });
