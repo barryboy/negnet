@@ -24,7 +24,7 @@
         vm.p_id = $rootScope.currentProject;
 
         ProjectService.GetById(vm.p_id).then(function(resp){
-            vm.project = resp.project;
+            vm.project = resp;
         });
 
         UtteranceService.GetAllByProject(vm.p_id).then(function(resp){

@@ -6,21 +6,23 @@
     </md-toolbar>
 
     <md-content flex>
-        <div layout="column" ng-mousedown="vm.startSelection($event)">
+        <div layout="column">
             <md-table-container>
-                <table md-table>
-                    <thead md-head>
-                        <th md-column>Step</th>
-                        <th md-column>Party</th>
-                        <th md-column>Content</th>
+                <table class="utterance-table" md-table fixed-header>
+                    <thead class="utterance-table-header" fix-head  md-head>
+                        <tr class="utterance-table-header-row" md-row>
+                            <th class="utterance-table-header-cell" md-column>Step</th>
+                            <th class="utterance-table-header-cell" md-column>Party</th>
+                            <th class="utterance-table-header-cell" md-column>Content</th>
+                        </tr>
                     </thead>
-                <tbody md-body>
-                    <tr md-row ng-repeat="utterance in vm.utterances">
-                        <td md-cell ng-attr-id="{{utterance._id}}">{{utterance.step}}</td>
-                        <td md-cell ng-attr-id="{{utterance._id}}">{{utterance.party}}</td>
-                        <td class="utterance" md-cell ng-attr-id="{{utterance._id}}" ng-mouseup="vm.getSelection($event)" ng-bind-html="utterance.content"></td>
-                    </tr>
-                </tbody>
+                    <tbody class="utterance-table-body" md-body>
+                        <tr class="utterance-table-row" md-row ng-repeat="utterance in vm.utterances">
+                            <td class="utterance-table-cell step" md-cell ng-attr-id="{{utterance._id}}">{{utterance.step}}</td>
+                            <td class="utterance-table-cell party" md-cell ng-attr-id="{{utterance._id}}">{{utterance.party}}</td>
+                            <td class="utterance-table-cell utterance" md-cell ng-attr-id="{{utterance._id}}" ng-mousedown="vm.startSelection($event)" ng-mouseup="vm.getSelection($event)" ng-bind-html="utterance.content"></td>
+                        </tr>
+                    </tbody>
                 </table>
             </md-table-container>
         </div>

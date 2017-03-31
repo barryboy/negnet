@@ -88,3 +88,12 @@ md-dialog{
 .selection {
     background: yellow;
 }
+
+/* Utterances table */ 
+.utterance-table-row:nth-child(even) {i
+    background: #EEE
+}
+
+.utterance-table-row:nth-child(odd) {
+    background: #FFF
+}
