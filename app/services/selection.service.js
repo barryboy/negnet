@@ -10,17 +10,13 @@
         var service = {};
         var baseUrl = API.URL + ':' + API.PORT;
 
-        service.GetAll = GetAll;
         service.GetById = GetById;
+        service.GetByUserInProject = GetByUserInProject;
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
 
         return service;
-
-        function GetAll() {
-            return $http.get(baseUrl + '/selections/').then(handleSuccess, handleError('Error getting all selections'));
-        }
 
         function GetById(id) {
             return $http.get(baseUrl + '/selections/' + id).then(handleSuccess, handleError('Error getting selection by id'));
@@ -31,15 +27,15 @@
         }
 
         function Create(selection) {
-            return $http.post(baseUrl + '/selections/', selection).then(handleSuccess, handleError('Error creating selection'));
+            return $http.post(baseUrl + '/selection/', selection).then(handleSuccess, handleError('Error creating selection'));
         }
 
         function Update(selection) {
-            return $http.put(baseUrl + '/selections/' + selection.id, selection).then(handleSuccess, handleError('Error updating selection'));
+            return $http.put(baseUrl + '/selection/' + selection.id, selection).then(handleSuccess, handleError('Error updating selection'));
         }
 
         function Delete(id) {
-            return $http.delete(baseUrl + '/selections/' + id).then(handleSuccess, handleError('Error deleting selection'));
+            return $http.delete(baseUrl + '/selection/' + id).then(handleSuccess, handleError('Error deleting selection'));
         }
 
         // private functions
