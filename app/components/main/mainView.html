@@ -1,12 +1,12 @@
-<div ng-controller="MainController as main" layout="column" flex ng-cloak>
+<div ng-controller="MainController as main" layout="column" class="main" flex ng-cloak>
 
-    <div layout="row" layout-padding flex>
+    <div class="main-content" layout="row" layout-padding flex>
 
         <md-sidenav md-component-id="left" class="md-sidenav-left">
             <div ng-include="'app/components/main/md-button-navbar.html'"></div>
         </md-sidenav>
 
-        <div layout="column" layout-align="start center">
+        <div class="main-left-column" layout="column" layout-align="start center">
             <md-button aria-label="menu" ng-click="main.toggleLeft()">
                 <md-icon md-svg-src="img/icons/menu.svg"></md-icon>
                 <md-tooltip md-direction="bottom">
@@ -17,11 +17,12 @@
             <p>Logo?</p>
         </div>
 
-        <md-content layout="column">
-            <div layout="column" class="viewport" ng-view></div>
-        </md-content>
+        <div layout="column" class="main-viewport" ng-view></div>
+
     </div>
-    <div class="footer" layout="row" layout-align="center center">
+
+    <div class="main-footer" layout="row" layout-align="center center">
        © 2017 Michał Ziembowicz. All rights reserved.
     </div>
+
 </div>

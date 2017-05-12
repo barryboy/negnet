@@ -97,28 +97,9 @@
         }
 
 
-//            var className = target.attr('class');
-//            if (className == 'selection') {
-//                console.log("Wybrano selekcję");
-//            } else {
-//                if (angular.equals(target, vm.selection_start)) {
-//                    var id = target.attr('id');
-//                    var selection = window.getSelection();
-//                    var start = selection.anchorOffset;
-//                    var end = selection.focusOffset;
-//                    var whole_txt = angular.element(target).text();
-//                    var selected_txt = selection.toString();
-//                    console.log(id + '\n' + whole_txt  + '\n'  + selected_txt + ' (' + start + ', ' + end + ')');
-//                } else {
-//                    console.log('selekcja musi odbywać się w obrębie jednej wypowiedzi');
-//                }
-//                if (selected_txt != ''){
-//                    vm.showSaveSelectionMenu(ev, id, whole_txt, start, end);
-//                }
-//            }
 
         vm._mdPanel = $mdPanel;
-        vm.nodes = ['node1', 'node2', 'node3', 'node4', 'node5', 'node6', 'node7', 'node8', 'node9', 'node10', 'node11', 'node12', 'node13', 'node14', 'node15', 'node16', 'node17', 'node18', 'node19', 'node20' ];
+        vm.nodes = ['pierwszy node', 'drugi node', 'trzeci', 'czwarty', 'piąty' ];
     }
 
 
@@ -160,6 +141,7 @@
 
     function PanelMenuCtrl(mdPanelRef) {
         this._mdPanelRef = mdPanelRef;
+
     };
 
     PanelMenuCtrl.prototype.closeDialog = function() {

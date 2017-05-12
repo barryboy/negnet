@@ -1,29 +1,40 @@
+<div class="workspace-main">
+    <div class="workspace-toolbar-container">
+        <md-toolbar class="md-whiteframe-1dpi workspace-toolbar">
+            <div class="md-toolbar-tools">
+                <div class="md-title">{{vm.project.name}}</div>
+            </div>
+        </md-toolbar>
+    </div>
 
-    <md-toolbar class="md-whiteframe-1dp">
-        <div class="md-toolbar-tools">
-            <div class="md-title">{{vm.project.name}}</div>
-        </div>
-    </md-toolbar>
+    <div layout="row" layout-align="space-between center" flex  class="workspace-content">
+        <md-table-container class="workspace-utterance-table-container">
+            <table class="utterance-table" md-table fixed-header>
+                <thead class="utterance-table-header"  md-head>
+                    <tr class="utterance-table-header-row" md-row>
+                        <th class="utterance-table-header-cell step" md-column>Step</th>
+                        <th class="utterance-table-header-cell party" md-column>Party</th>
+                        <th class="utterance-table-header-cell utterance" md-column>Content</th>
+                    </tr>
+                </thead>
+                <tbody class="utterance-table-body" md-body>
+                    <tr class="utterance-table-row" md-row ng-repeat="utterance in vm.utterances">
+                        <td class="utterance-table-cell step" md-cell ng-attr-id="{{utterance.utt_id}}">{{utterance.step}}</td>
+                        <td class="utterance-table-cell party" md-cell ng-attr-id="{{utterance.utt_id}}">{{utterance.party}}</td>
+                        <td class="utterance-table-cell utterance" md-cell ng-attr-id="{{utterance.utt_id}}" ng-click="vm.selection($event)" ng-bind-html="utterance.content | trusted"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
 
-    <md-content flex>
-        <div layout="column">
-            <md-table-container>
-                <table class="utterance-table" md-table fixed-header>
-                    <thead class="utterance-table-header" fix-head  md-head>
-                        <tr class="utterance-table-header-row" md-row>
-                            <th class="utterance-table-header-cell" md-column>Step</th>
-                            <th class="utterance-table-header-cell" md-column>Party</th>
-                            <th class="utterance-table-header-cell" md-column>Content</th>
-                        </tr>
-                    </thead>
-                    <tbody class="utterance-table-body" md-body>
-                        <tr class="utterance-table-row" md-row ng-repeat="utterance in vm.utterances">
-                            <td class="utterance-table-cell step" md-cell ng-attr-id="{{utterance.utt_id}}">{{utterance.step}}</td>
-                            <td class="utterance-table-cell party" md-cell ng-attr-id="{{utterance.utt_id}}">{{utterance.party}}</td>
-                            <td class="utterance-table-cell utterance" md-cell ng-attr-id="{{utterance.utt_id}}" ng-click="vm.selection($event)" ng-bind-html="utterance.content | trusted"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </md-table-container>
+        <div layout="column" layout-align="center center" class="workspace-right-panel">
+            <div class="workspace-toolbox">
+                <p>Toolbox</p>
+            </div>
+            <div class="workspace-network">
+                <p>Here will go the network visualisation</p>
+            </div>
         </div>
-    </md-content>
+
+    </div>
+</div>

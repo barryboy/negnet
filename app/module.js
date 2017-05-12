@@ -11,6 +11,7 @@
             'base64',
             'lfNgMdFileInput',
             'md.data.table',
+            'anguFixedHeaderTable',
             'ngSanitize'
         ])
         .config(['$qProvider', function ($qProvider) {

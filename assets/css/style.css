@@ -1,11 +1,25 @@
-.footer {
-    height: 20px;
-    font-size: x-small;
+/* Main viewport */
+.main {
 }
 
-.viewport {
+.main-content {
+}
+
+.main-footer {
+    font-size: x-small;
+    height: 3%;
+}
+
+.main-viewport {
     height: 100%;
 }
+
+.main-left-column {
+    height: 100%;
+}
+
+
+/* Sidenav */
 
 md-sidenav {
     height: 90%;
@@ -14,15 +28,98 @@ md-sidenav {
     border-bottom-right-radius: 2em;
 }
 
+
+/* Workspace (negnet) View */
+
+.workspace-main {
+    width: 100%;
+    height: 100%;
+}
+
+.workspace-content {
+    width: 100%;
+    height: 92%;
+    overflow: hidden;
+}
+
+.workspace-right-panel {
+    width: 40%;
+    height: 100%;
+}
+
+.workspace-toolbox {
+    width: 100%;
+    height: 30%;
+    border: 1px dotted gray;
+}
+
+.workspace-network {
+    width: 100%;
+    height: 70%;
+    border: 1px dotted gray;
+    background: lightgray;
+}
+
+.workspace-network p{
+    text-align: center;
+    margin: auto;
+    padding: 200px;
+}
+
+/* Utterances table */
+
+.workspace-utterance-table-container {
+    height: 100%;
+    width: 60%;
+    border: 1px dotted gray;
+}
+
+.utterance-table {
+    height: 100%;
+}
+
+.utterance-table-row:nth-child(even) {i
+    background: #EEE
+}
+
+.utterance-table-row:nth-child(odd) {
+    background: #FFF
+}
+
+.utterance-table > tbody > tr > td:nth-child(1) {
+    text-align: center;
+}
+
+.utterance-table > thead > tr > th:nth-child(1) {
+    text-align: center;
+}
+
+.utterance-table > tbody > tr > td:nth-child(2) {
+    text-align: center;
+}
+
+.utterance-table > thead > tr > th:nth-child(2) {
+    text-align: center;
+}
+
+.utterance-table > thead > tr > th:nth-child(3) {
+    text-align: center;
+}
+
+.selection {
+    background: yellow;
+}
+
+/* Dialog */
+/*
 md-dialog{
     pointer-events: all;
-    width: 50%;
+    width: auto;
 }
 
 #file-input{
     display: none;
 }
-
 .selection-dialog-content {
     padding: 2% 2% 2% 2%;
 }
@@ -39,7 +136,7 @@ md-dialog{
 
 .utterance-selection {
     font-style: italic;
-    font-size: 120%;
+    font-size: 100%;
     font-weight: bold;
     text-align: center;
     background: lightgrey;
@@ -72,7 +169,7 @@ md-dialog{
     height: 40px;
     padding-top: 40px;
     padding-bottom: 40px;
-    font-size: 150%;
+    font-size: 100%;
 }
 
 .start-node {
@@ -84,16 +181,5 @@ md-dialog{
     font-weight: bold;
     color: red;
 }
+*/
 
-.selection {
-    background: yellow;
-}
-
-/* Utterances table */ 
-.utterance-table-row:nth-child(even) {i
-    background: #EEE
-}
-
-.utterance-table-row:nth-child(odd) {
-    background: #FFF
-}
