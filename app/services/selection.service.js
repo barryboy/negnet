@@ -27,6 +27,7 @@
         }
 
         function Create(selection) {
+            console.log('SelectionService.Create()');
             return $http.post(baseUrl + '/selection/', selection).then(handleSuccess, handleError('Error creating selection'));
         }
 

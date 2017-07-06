@@ -19,9 +19,13 @@
                 </thead>
                 <tbody class="utterance-table-body" md-body>
                     <tr class="utterance-table-row" md-row ng-repeat="utterance in vm.utterances">
-                        <td class="utterance-table-cell step" md-cell ng-attr-id="{{utterance.utt_id}}">{{utterance.step}}</td>
-                        <td class="utterance-table-cell party" md-cell ng-attr-id="{{utterance.utt_id}}">{{utterance.party}}</td>
-                        <td class="utterance-table-cell utterance" md-cell ng-attr-id="{{utterance.utt_id}}" ng-click="vm.selection($event)" ng-bind-html="utterance.content | spanWrap:utterance.utt_id"></td>
+                        <td class="utterance-table-cell step disable-text-selection" md-cell ng-attr-id="{{utterance.utt_id}}">{{utterance.step}}</td>
+                        <td class="utterance-table-cell party disable-text-selection" md-cell ng-attr-id="{{utterance.utt_id}}">{{utterance.party}}</td>
+                        <td class="utterance-table-cell utterance disable-text-selection"
+                            md-cell ng-attr-id="{{utterance.utt_id}}_content">
+                           <!--ng-bind-html="utterance.content |
+                               spanWrap:utterance.utt_id"-->
+                        </td>
                     </tr>
                 </tbody>
             </table>
