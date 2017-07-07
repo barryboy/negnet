@@ -21,10 +21,11 @@
                     <tr class="utterance-table-row" md-row ng-repeat="utterance in vm.utterances">
                         <td class="utterance-table-cell step disable-text-selection" md-cell ng-attr-id="{{utterance.utt_id}}">{{utterance.step}}</td>
                         <td class="utterance-table-cell party disable-text-selection" md-cell ng-attr-id="{{utterance.utt_id}}">{{utterance.party}}</td>
-                        <td class="utterance-table-cell utterance disable-text-selection"
-                            md-cell ng-attr-id="{{utterance.utt_id}}_content">
-                           <!--ng-bind-html="utterance.content |
-                               spanWrap:utterance.utt_id"-->
+                        <td class="utterance-table-cell utterance disable-text-selection" md-cell ng-attr-id="{{utterance.utt_id}}_content">
+                            <span id="{{ch.abs_id}}"
+                                ng-repeat="ch in utterance.content track by $index"
+                                ng-mouseenter="vm.touchChar($event)"
+                                ng-style="vm.highlight(ch.selected)">{{ch.character}}</span>
                         </td>
                     </tr>
                 </tbody>

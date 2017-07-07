@@ -36,18 +36,38 @@
         });
 
         UtteranceService.GetAllByProject(vm.p_id).then(function(resp){
-            vm.utterances = resp;
-            vm.utterances_map = {};
-            for (var i = 0; i < vm.utterances.length; i++) {
-                var u = vm.utterances[i];
-                var cell = $(u.utt_id+"_content");
-                //var cell = $("workspace-main");
-                var p = document.createElement('p');
-                p.innerHTML = "dupa";
-                $compile(p)
-                cell.append(angular.element(p));
-                $log.info(cell);
+            var utts = [];
+            var id_map = [];
+            var n = 0;
+            for (var i = 0;i<resp.length; i++) {
+                var chars = resp[i].content.split("");
+                var chars_table = [];
+                for (var j = 0; j<chars.length; j++) {
+                    var ch = {
+                        abs_id: n,
+                        index: j + 1,
+                        character: chars[j],
+                        selected: false
+                    }
+                    n++;
+                    chars_table.push(ch);
+                    id_map.push({
+                        uid: i,
+                        cid: j
+                    })
+                }
+                var u = {
+                    index: i + 1,
+                    utt_id: resp[i].utt_id,
+                    step: resp[i].step,
+                    party: resp[i].party,
+                    content: chars_table
+                }
+                utts.push(u);
             }
+            vm.utterances = utts;
+            vm.id_map = id_map;
+            $log.info(vm.id_map);
         });
 
         vm.simulateQuery = false;
@@ -58,9 +78,21 @@
         $log.info('Zaladowalem nazwy wezlow')
         vm.querySearch   = querySearch;
 
+        vm.highlight = highlight;
+        function highlight(selected) {
+            if (selected) {
+                return {color: 'red'};
+            } else {
+                return {color: 'black'};
+            }
+        }
+
         vm.touchChar = touchChar;
-        function touchChar(ev) {
-            $log.info(ev);
+        function touchChar($event) {
+            var ct = $event.currentTarget;
+            var id = ct.id;
+            var ch = vm.id_map[id];
+            vm.utterances[ch.uid].content[ch.cid].selected = true;
         }
 
         vm.addNode = addNode;
