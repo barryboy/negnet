@@ -1,4 +1,4 @@
-<div class="workspace-main">
+<div class="workspace-main" ng-mouseup="vm.finish_selecting()">
     <div class="workspace-toolbar-container">
         <md-toolbar class="md-whiteframe-1dpi workspace-toolbar">
             <div class="md-toolbar-tools">
@@ -25,6 +25,7 @@
                             <span id="{{ch.abs_id}}"
                                 ng-repeat="ch in utterance.content track by $index"
                                 ng-mouseenter="vm.touchChar($event)"
+                                ng-mousedown="vm.start_selecting($event)"
                                 ng-style="vm.highlight(ch.selected)">{{ch.character}}</span>
                         </td>
                     </tr>

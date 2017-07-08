@@ -78,30 +78,98 @@
         $log.info('Zaladowalem nazwy wezlow')
         vm.querySearch   = querySearch;
 
-        vm.highlight = highlight;
-        function highlight(selected) {
+        vm.highlight = function highlight(selected) {
             if (selected) {
-                return {color: 'red'};
+                return {'font-weight': 'bolder', 'color': 'red'};
             } else {
-                return {color: 'black'};
+                return {'font-weight': 'normal', 'color': 'black'};
             }
         }
 
-        vm.touchChar = touchChar;
-        function touchChar($event) {
-            var ct = $event.currentTarget;
-            var id = ct.id;
-            var ch = vm.id_map[id];
-            vm.utterances[ch.uid].content[ch.cid].selected = true;
+        var selecting = false;
+        var processing  = false;
+        vm.text_selected = false;
+        var start_index = -1;
+
+        vm.start_selecting = function($event) {
+            selecting = true;
+            start_index = $event.currentTarget.id;
         }
 
-        vm.addNode = addNode;
-        function addNode(node) {
-        alert("Create new node: " + node);
+        vm.toggle_selecting = function($event) {
+            if (!selecting) {
+                selecting = true;
+                start_index = Number($event.currentTarget.id);
+            } else {
+                selecting = false;
+            }
         }
-        vm.addLink = addLink;
-        function addLink(node1, node2) {
-        alert("Create new from " + node1 + " to " + node2 + ".");
+
+        vm.finish_selecting = function() {
+            selecting = false;
+            $log.info(vm.getSelectedText())
+        }
+
+        vm.getSelectedText = function() {
+            if (from != to) {
+                var selected_chars = [];
+                for (var i = from; i < to; i++){
+                    var ch = vm.id_map[i];
+                    selected_chars.push(vm.utterances[ch.uid].content[ch.cid].character);
+                }
+                vm.text_selected = true;
+                return selected_chars.join("");
+            } else {
+                return false;
+            }
+        }
+
+        vm.reset_all_highlight = function() {
+            vm.reset_highlight(0, vm.id_map.length)
+            vm.text_selected = false;
+        }
+
+        vm.reset_highlight = function(from, to){
+            for (var i = from; i < to; i++){
+                var ch = vm.id_map[i];
+                vm.utterances[ch.uid].content[ch.cid].selected = false;
+            }
+        }
+
+        var from;
+        var to;
+        var past_from = 0;
+        var past_to = 0;
+
+        vm.touchChar = function($event) {
+            if(selecting && !processing) {
+                processing = true;
+                vm.reset_highlight(past_from, past_to);
+                var ct = $event.currentTarget;
+                var id = Number(ct.id);
+                if (id > start_index) {
+                    from = start_index;
+                    to = id;
+                } else {
+                    from = id;
+                    to = start_index;
+                }
+                past_from = from;
+                past_to = to;
+                for (var i = from; i < to; i++){
+                    var ch = vm.id_map[i];
+                    vm.utterances[ch.uid].content[ch.cid].selected = true;
+                }
+                //$log.info("start: " + start_index + ", id: " + id  +", from: " + from + ", to: " + to);
+                processing = false;
+            }
+        }
+
+        vm.addNode = function addNode(node) {
+            alert("Create new node: " + node);
+        }
+        vm.addLink = function addLink(node1, node2) {
+            alert("Create new from " + node1 + " to " + node2 + ".");
         }
 
         // ******************************
@@ -113,15 +181,15 @@
         * remote dataservice call.
         */
         function querySearch (query) {
-        var results = query ? vm.nodes.filter( createFilterFor(query) ) : vm.nodes,
-            deferred;
-        if (vm.simulateQuery) {
-            deferred = $q.defer();
-            $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
-            return deferred.promise;
-        } else {
-            return results;
-        }
+            var results = query ? vm.nodes.filter( createFilterFor(query) ) : vm.nodes,
+                deferred;
+            if (vm.simulateQuery) {
+                deferred = $q.defer();
+                $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
+                return deferred.promise;
+            } else {
+                return results;
+            }
         }
 
         /**
