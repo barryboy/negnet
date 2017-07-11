@@ -1,0 +1,23 @@
+{
+  "name": "ng-lorem",
+  "version": "0.0.1",
+  "main": "dist/ng-lorem.min.js",
+  "ignore": [
+    "src",
+    ".gitignore",
+    "bower.json",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "homepage": "https://github.com/jordifebrer/ng-lorem",
+  "_release": "0.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.1",
+    "commit": "b9e98df56cc9b359ae3581d8ef8f723a919c1b15"
+  },
+  "_source": "https://github.com/jordifebrer/ng-lorem.git",
+  "_target": "^0.0.1",
+  "_originalSource": "ng-lorem",
+  "_direct": true
+}

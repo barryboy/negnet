@@ -1,0 +1,12 @@
+{
+    "name": "ng-lorem",
+    "version": "0.0.1",
+    "main": "dist/ng-lorem.min.js",
+    "ignore": [
+        "src",
+        ".gitignore",
+        "bower.json",
+        "README.md",
+        "LICENSE.md"
+    ]
+}

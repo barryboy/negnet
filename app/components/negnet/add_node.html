@@ -13,7 +13,7 @@
         <span md-highlight-text="vm.searchNodeName" md-highlight-flags="^i">{{item.display}}</span>
         </md-item-template>
     </md-autocomplete>
-    <md-button class="md-primary" ng-click="vm.addNode(vm.searchNodeName)" ng-disabled="!vm.text_selected">
+    <md-button class="md-primary" ng-click="vm.addNode(vm.searchNodeName)" ng-disabled="!vm.text_selected || vm.searchNodeName == ''">
         Add a new node
     </md-button>
     <md-button class="md-primary" ng-click="vm.reset_all_highlight()" ng-show="vm.text_selected">

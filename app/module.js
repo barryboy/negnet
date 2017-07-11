@@ -13,6 +13,7 @@
             'md.data.table',
             'anguFixedHeaderTable',
             'ngSanitize'
+            ,'ngLorem'
         ])
         .config(['$qProvider', function ($qProvider) {
             $qProvider.errorOnUnhandledRejections(false);

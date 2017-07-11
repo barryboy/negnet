@@ -106,8 +106,10 @@
         }
 
         vm.finish_selecting = function() {
-            selecting = false;
-            $log.info(vm.getSelectedText())
+            if (selecting) {
+                selecting = false;
+                vm.text_selected = true;
+            }
         }
 
         vm.getSelectedText = function() {
@@ -117,10 +119,23 @@
                     var ch = vm.id_map[i];
                     selected_chars.push(vm.utterances[ch.uid].content[ch.cid].character);
                 }
-                vm.text_selected = true;
                 return selected_chars.join("");
             } else {
                 return false;
+            }
+        }
+
+        vm.getSelectionBounds = function() {
+            if (from != to) {
+                var start_char = vm.id_map[from];
+                var end_char = vm.id_map[to];
+                var bounds = {start_utt_id: vm.utterances[start_char.uid].utt_id,
+                    end_utt_id: vm.utterances[end_char.uid].utt_id,
+                    start_pos: start_char.cid,
+                    end_pos: end_char.cid};
+                return bounds;
+            } else {
+                return null;
             }
         }
 
@@ -166,8 +181,20 @@
         }
 
         vm.addNode = function addNode(node) {
-            alert("Create new node: " + node);
+            var selection = vm.getSelectionBounds();
+            selection.p_id = vm.p_id;
+            selection.type = "node";
+            selection.name = node;
+            selection.comment = "";
+            selection.u_id = SessionService.getUserId();
+            vm.searchNodeName = "";
+            vm.reset_all_highlight();
+            SelectionService.Create(selection)
+                .then(function(response) {
+                    $log.info(response);
+                })
         }
+
         vm.addLink = function addLink(node1, node2) {
             alert("Create new from " + node1 + " to " + node2 + ".");
         }
@@ -196,7 +223,7 @@
         * Build `states` list of key/value pairs
         */
         function loadAll() {
-        var allNodes = 'Node1, Node2, Node3, adsa, asdasd, werwer, ertryty, tyuytutyu ,werwerwkw, werwer, wrwerwer,vnvnbvb,sfsdf';
+        var allNodes = 'Node1, Node2, Node3, My new node';
 
         return allNodes.split(/, +/g).map( function (node) {
             return {

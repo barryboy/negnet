@@ -1,14 +1,14 @@
 <div class="jumbotron text-center">
-    <h2>Dashboard Page</h2>
+    <h2>Dashboard</h2>
     <div ng-show="$parent.userLoggedIn">
         <md-tabs md-dynamic-height md-border-bottom>
  <!-- PROJECT SETTINGS -->
             <md-tab label="Projects settings">
                 <md-content class="md-padding">
-                    <p>Tutaj będzie można tworzyć, niszczyć i przeglądać projekty, a także dodawać do nich nowych userów oraz merge'ować ich oceny</p>
+                    <p>Here one will be able to create new projects, to edit (i.e. manage judges and transcripts) or to delete existing projects, and also to merge assesments from the judges working on the project</p>
                     <div>
                         <md-button class="md-primary" ng-click="vm.showCreateProjectDlg($event)">
-                            Utwórz nowy projekt
+                            Create new project
                         </md-button>
                     </div>
                     <md-list>

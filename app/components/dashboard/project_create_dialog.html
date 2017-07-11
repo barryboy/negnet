@@ -3,11 +3,11 @@
         <div>
             <form name="projectForm">
                 <md-input-container>
-                    <label>Tytuł projektu</label>
+                    <label>Project title</label>
                     <input ng-model="createProjDlg.projectData.name">
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <label>Opis projektu:</label>
+                    <label>Project description:</label>
                     <textarea ng-model="createProjDlg.projectData.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
                 </md-input-container>
                 <md-input-container>
@@ -17,7 +17,7 @@
         </div>
         <div class="md-dialog-actions">
             <md-button ng-click="createProjDlg.accept()" class="md-primary">
-                Utwórz projekt
+                Create project
             </md-button>
         </div>
     </md-content>

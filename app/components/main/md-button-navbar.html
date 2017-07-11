@@ -2,11 +2,11 @@
     <div class="md-toolbar-tools">NegNet</div>
 </md-toolbar>
 
-<md-subheader ng-show="main.userLoggedIn">Witaj, {{ main.name }}</md-subheader>
+<md-subheader ng-show="main.userLoggedIn">Hello, {{ main.name }}</md-subheader>
 
 <md-content layout-padding layout="column">
     <span flex></span>
-    <md-button class="md-raised" href="#!/home" name="Home" ng-click="main.toggleLeft()">NegNet</md-button>
+    <md-button class="md-raised" href="#!/home" name="Home" ng-click="main.toggleLeft()">Home</md-button>
     <md-button class="md-raised" href="#!/dashboard" name="Dashboard" ng-show="main.userLoggedIn" ng-click="main.toggleLeft()">Dashboard</md-button>
     <md-button class="md-raised" href="#!/negnet" name="Workspace" ng-show="main.userLoggedIn && main.hasOpenProjects" ng-click="main.toggleLeft()">Workspace</md-button>
     <md-list>

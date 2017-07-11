@@ -2,11 +2,14 @@
     <h1>Home Page</h1>
     <md-content class="md-padding">
         <div>
-            <p>Ogólne pierdolenie dla niezalogowanych userów</p>
+            <lorem-ipsum repeat="2"></lorem-ipsum>
         </div>
         <div ng-show="$parent.userLoggedIn">
-            <h4>Na skróty:</h4>
-            <a href="#!/dashboard">Utwórz nowy projekt</a>
+            <h4>Shortcuts:</h4>
+            <ul>
+                <li><a href="#!/dashboard">Create new project</a></li>
+                <li><a href="#!/negnet">Continue last project</a></li>
+            </ul>
         </div>
     </md-content>
 </div>

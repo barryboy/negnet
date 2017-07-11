@@ -34,13 +34,10 @@
         </md-table-container>
 
         <div class="workspace-right-panel">
-            <div class="workspace-toolbox">
-                <md-tabs md-dynamic-conten md-border-bottom>
-                    <md-tab label="Add node">
-                        <div ng-include="'app/components/negnet/add_node.html'"></div>
-                    </md-tab>
-                    <md-tab label="Add link">
-                        <div ng-include="'app/components/negnet/add_link.html'"></div>
+            <div class="workspace-toolbox" flex>
+                <md-tabs md-dynamic-height md-border-bottom>
+                    <md-tab label="Anotate selection">
+                        <div ng-include="'app/components/negnet/anotate_selection.html'"></div>
                     </md-tab>
                     <md-tab label="Browse nodes">
                         <div ng-include="'app/components/negnet/browse_nodes.html'"></div>
