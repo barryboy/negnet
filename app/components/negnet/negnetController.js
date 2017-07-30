@@ -25,9 +25,9 @@
         var vm = this;
         $log.info('Zaladowalem ' + vm.constructor.name);
 
-        var $ = function (selector) {
-            return angular.element(document.getElementById(selector));
-        };
+        //var $ = function (selector) {
+        //    return angular.element(document.getElementById(selector));
+        //};
 
         vm.p_id = $rootScope.currentProject;
 
