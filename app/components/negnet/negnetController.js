@@ -10,6 +10,7 @@
                                 'UtteranceService',
                                 'SelectionService',
                                 'UserService',
+                                'NodeService',
                                 '$mdPanel',
                                 '$route',
                                 '$timeout',
@@ -20,7 +21,7 @@
 
 
     function NegNetController(SessionService, ProjectService, UtteranceService,
-        SelectionService, UserService, $mdPanel, $route, $timeout, $q, $log,
+        SelectionService, UserService, NodeService, $mdPanel, $route, $timeout, $q, $log,
         $rootScope, $compile) {
         var vm = this;
         $log.info('Zaladowalem ' + vm.constructor.name);
@@ -47,7 +48,9 @@
                         abs_id: n,
                         index: j + 1,
                         character: chars[j],
-                        selected: false
+                        selected: false,
+                        node: false,
+                        link: false
                     }
                     n++;
                     chars_table.push(ch);
@@ -66,23 +69,64 @@
                 utts.push(u);
             }
             vm.utterances = utts;
+            vm.utterances_blank = utts;
+            $log.info("Załadowałem wypowiedzi");
             vm.id_map = id_map;
-            $log.info(vm.id_map);
+            $log.info("Załadowałem tablicę indeksów");
+        }).then(function() {
+            updateSelections();
         });
+
+        function updateSelections() {
+            vm.selections = [];
+            vm.utterances = vm.utterances_blank;
+            SelectionService.GetByProject(vm.p_id).then(function(sel){
+                for (var i=0; i<sel.length; i++){
+                    var s = sel[i];
+                    var selection = {
+                        start: s.abs_start_pos,
+                        end: s.abs_end_pos,
+                        type: s.type
+                    }
+                    $log.info(selection);
+
+                    for (var j=selection.start; j<selection.end+1; j++) {
+                        var id = vm.id_map[j];
+                        var ch = vm.utterances[id.uid].content[id.cid]
+                        if (selection.type == "node") {
+                            ch.node = true;
+                        } else if (selection.type == "link") {
+                            ch.link = true;
+                        }
+                    }
+                    vm.selections.push(selection);
+                }
+            $log.info(vm.selections);
+            })
+        };
+
 
         vm.simulateQuery = false;
         vm.isDisabled    = false;
 
-        // list of `state` value/display objects
-        vm.nodes        = loadAll();
-        $log.info('Zaladowalem nazwy wezlow')
+
         vm.querySearch   = querySearch;
 
-        vm.highlight = function highlight(selected) {
-            if (selected) {
-                return {'font-weight': 'bolder', 'color': 'red'};
-            } else {
-                return {'font-weight': 'normal', 'color': 'black'};
+        vm.stylize = function stylize(ch) {
+            var selected = (ch.selected ? 4 : 0);
+            var node = (ch.node ? 1 : 0);
+            var link = (ch.link ? 2 : 0);
+            var style = selected + node + link;
+            switch (style) {
+                case 0: return {'font-weight': 'normal', 'color': 'black', 'background-color': 'transparent'};
+                case 1: return {'font-weight': 'normal', 'color': 'black', 'background-color': 'yellow'};
+                case 2: return {'font-weight': 'normal', 'color': 'black', 'background-color': 'yellow'};
+                case 3: return {'font-weight': 'normal', 'color': 'black', 'background-color': 'yellow'};
+                case 4: return {'font-weight': 'bold', 'color': 'red', 'background-color': 'transparent'};
+                case 5: return {'font-weight': 'bold', 'color': 'red', 'background-color': 'yellow'};
+                case 6: return {'font-weight': 'bold', 'color': 'red', 'background-color': 'yellow'};
+                case 7: return {'font-weight': 'bold', 'color': 'red', 'background-color': 'yellow'};
+                default: return {'font-weight': 'normal', 'color': 'black', 'background-color': 'transparent'};
             }
         }
 
@@ -109,6 +153,7 @@
             if (selecting) {
                 selecting = false;
                 vm.text_selected = true;
+                loadNodeNames();
             }
         }
 
@@ -132,7 +177,9 @@
                 var bounds = {start_utt_id: vm.utterances[start_char.uid].utt_id,
                     end_utt_id: vm.utterances[end_char.uid].utt_id,
                     start_pos: start_char.cid,
-                    end_pos: end_char.cid};
+                    end_pos: end_char.cid,
+                    abs_start_pos: from,
+                    abs_end_pos: to};
                 return bounds;
             } else {
                 return null;
@@ -191,22 +238,41 @@
             vm.reset_all_highlight();
             SelectionService.Create(selection)
                 .then(function(response) {
+                    updateSelections();
                     $log.info(response);
                 })
         }
 
         vm.addLink = function addLink(node1, node2) {
-            alert("Create new from " + node1 + " to " + node2 + ".");
+            //alert("Create new from " + node1 + " to " + node2 + ".");
+            var selection = vm.getSelectionBounds();
+            selection.p_id = vm.p_id;
+            selection.type = "link";
+            selection.name = "";
+            selection.comment = "";
+            selection.node_from = node1;
+            selection.node_to = node2;
+            selection.u_id = SessionService.getUserId();
+            vm.searchStartNode = "";
+            vm.searchEndNode = "";
+            vm.reset_all_highlight();
+            SelectionService.Create(selection)
+                .then(function(response) {
+                    updateSelections();
+                    $log.info(response);
+                })
         }
 
         // ******************************
         // Internal methods
         // ******************************
 
-        /**
-        * Search for states... use $timeout to simulate
-        * remote dataservice call.
-        */
+        function loadNodeNames(){
+            vm.nodes        = loadAll();
+            $log.info('Zaladowalem nazwy wezlow:')
+            $log.info(vm.nodes);
+        }
+
         function querySearch (query) {
             var results = query ? vm.nodes.filter( createFilterFor(query) ) : vm.nodes,
                 deferred;
@@ -223,14 +289,19 @@
         * Build `states` list of key/value pairs
         */
         function loadAll() {
-        var allNodes = 'Node1, Node2, Node3, My new node';
-
-        return allNodes.split(/, +/g).map( function (node) {
-            return {
-            value: node.toLowerCase(),
-            display: node
-            };
-        });
+            var nodesList = [];
+            NodeService.GetAllByProject(vm.p_id).then(function(resp){
+                for (var i in resp){
+                    var node = {
+                        value: resp[i].n_id,
+                        display: resp[i].name
+                    }
+                    nodesList.push(node);
+                }
+                $log.info("Wczytałem listę nazw węzłów:");
+                $log.info(nodesList);
+            });
+            return nodesList;
         }
 
         /**

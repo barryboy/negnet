@@ -26,7 +26,7 @@
                                 ng-repeat="ch in utterance.content track by $index"
                                 ng-mouseenter="vm.touchChar($event)"
                                 ng-mousedown="vm.start_selecting($event)"
-                                ng-style="vm.highlight(ch.selected)">{{ch.character}}</span>
+                                ng-style="vm.stylize(ch)">{{ch.character}}</span>
                         </td>
                     </tr>
                 </tbody>

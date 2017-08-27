@@ -5,8 +5,8 @@
         .module('negnetApp')
         .factory('UtteranceService', UtteranceService);
 
-    UtteranceService.$inject = ['$http', 'API'];
-    function UtteranceService($http, API) {
+    UtteranceService.$inject = ['$http', 'API', '$log'];
+    function UtteranceService($http, API, $log) {
         var service = {};
         var baseUrl = API.URL + ':' + API.PORT;
 
@@ -19,6 +19,7 @@
         return service;
 
         function GetAllByProject(p_id) {
+            $log.info('Getting utterances from project ' + p_id);
             return $http.get(baseUrl + '/utterances/' + p_id + '/').then(handleSuccess, handleError('Error getting all utterances'));
         }
 

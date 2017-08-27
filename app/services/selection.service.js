@@ -5,25 +5,26 @@
         .module('negnetApp')
         .factory('SelectionService', SelectionService);
 
-    SelectionService.$inject = ['$http', 'API'];
-    function SelectionService($http, API) {
+    SelectionService.$inject = ['$http', 'API', '$log'];
+    function SelectionService($http, API, $log) {
         var service = {};
         var baseUrl = API.URL + ':' + API.PORT;
 
         service.GetById = GetById;
-        service.GetByUserInProject = GetByUserInProject;
+        service.GetByProject = GetByProject;
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
 
         return service;
 
-        function GetById(id) {
-            return $http.get(baseUrl + '/selections/' + id).then(handleSuccess, handleError('Error getting selection by id'));
+        function GetById(s_id) {
+            $log.info('Getting selections from project ' + p_id);
+            return $http.get(baseUrl + '/selections/' + s_id).then(handleSuccess, handleError('Error getting selection by id'));
         }
 
-        function GetByUserInProject(id) {
-            return $http.getx(baseUrl + '/selections/' + id).then(handleSuccess, handleError('Error getting selection by id'));
+        function GetByProject(p_id) {
+            return $http.get(baseUrl + '/selections/' + p_id + '/').then(handleSuccess, handleError('Error getting selection by  project id'));
         }
 
         function Create(selection) {
