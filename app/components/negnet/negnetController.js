@@ -119,13 +119,13 @@
             var style = selected + node + link;
             switch (style) {
                 case 0: return {'font-weight': 'normal', 'color': 'black', 'background-color': 'transparent'};
-                case 1: return {'font-weight': 'normal', 'color': 'black', 'background-color': 'yellow'};
-                case 2: return {'font-weight': 'normal', 'color': 'black', 'background-color': 'yellow'};
-                case 3: return {'font-weight': 'normal', 'color': 'black', 'background-color': 'yellow'};
-                case 4: return {'font-weight': 'bold', 'color': 'red', 'background-color': 'transparent'};
-                case 5: return {'font-weight': 'bold', 'color': 'red', 'background-color': 'yellow'};
-                case 6: return {'font-weight': 'bold', 'color': 'red', 'background-color': 'yellow'};
-                case 7: return {'font-weight': 'bold', 'color': 'red', 'background-color': 'yellow'};
+                case 1: return {'font-weight': 'normal', 'color': 'black', 'background-color': '#ffff00'};
+                case 2: return {'font-weight': 'normal', 'color': 'black', 'background-color': '#00ff00'};
+                case 3: return {'font-weight': 'normal', 'color': 'black', 'background-color': '#99cc33'};
+                case 4: return {'font-weight': 'normal', 'color': 'red', 'background-color': 'transparent'};
+                case 5: return {'font-weight': 'normal', 'color': 'red', 'background-color': '#ffff00'};
+                case 6: return {'font-weight': 'normal', 'color': 'red', 'background-color': '#00ff00'};
+                case 7: return {'font-weight': 'normal', 'color': 'red', 'background-color': '#99cc33'};
                 default: return {'font-weight': 'normal', 'color': 'black', 'background-color': 'transparent'};
             }
         }
@@ -290,13 +290,18 @@
         */
         function loadAll() {
             var nodesList = [];
+            var unique = {};
             NodeService.GetAllByProject(vm.p_id).then(function(resp){
                 for (var i in resp){
-                    var node = {
-                        value: resp[i].n_id,
-                        display: resp[i].name
-                    }
+                    name = resp[i].name;
+                    if (!unique[name]) {
+                        var node = {
+                            value: name,
+                            display: name
+                        }
                     nodesList.push(node);
+                    unique[name] = true;
+                    }
                 }
                 $log.info("Wczytałem listę nazw węzłów:");
                 $log.info(nodesList);
