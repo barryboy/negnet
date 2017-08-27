@@ -229,10 +229,12 @@
 
         vm.addNode = function addNode(node) {
             var selection = vm.getSelectionBounds();
+            var content = vm.getSelectedText();
             selection.p_id = vm.p_id;
             selection.type = "node";
             selection.name = node;
             selection.comment = "";
+            selection.content = content;
             selection.u_id = SessionService.getUserId();
             vm.searchNodeName = "";
             vm.reset_all_highlight();
@@ -246,10 +248,12 @@
         vm.addLink = function addLink(node1, node2) {
             //alert("Create new from " + node1 + " to " + node2 + ".");
             var selection = vm.getSelectionBounds();
+            var content = vm.getSelectedText();
             selection.p_id = vm.p_id;
             selection.type = "link";
             selection.name = "";
             selection.comment = "";
+            selection.content = content;
             selection.node_from = node1;
             selection.node_to = node2;
             selection.u_id = SessionService.getUserId();
